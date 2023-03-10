@@ -4,11 +4,12 @@ import ChatBox from './ChatBox'
 
 import "../style.css"
 
+const INIT_CHAT_MESSAGE = {role:"sytem", content:"You are a helpful assistant."};
 
 function App() {
-    const [showChatBox, setShowChatBox] = useState(
-      false
-    );
+    const [showChatBox, setShowChatBox] = useState(false);
+    const [chatMessages, setChatMessages] = useState([INIT_CHAT_MESSAGE]);
+    const [inputText, setInputText] = useState("");
   
     const toggleChatBox = () => {
       setShowChatBox((prevState) => !prevState);
@@ -18,7 +19,7 @@ function App() {
       <div className="">
         {showChatBox && (
           <div className="fixed bottom-20 right-5">
-            <ChatBox />
+            <ChatBox chatMessages={chatMessages} setChatMessages={setChatMessages} inputText={inputText} setInputText={setInputText} />
           </div> 
         )}
         <div className="fixed bottom-5 right-5">
