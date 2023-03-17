@@ -2,16 +2,26 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 import { useRef } from 'react'
 import { useEffect } from 'react'
+import { Configuration, OpenAIApi, ChatCompletionRequestMessage } from "openai";
 
 import "../style.css"
 
-async function dummyOpenAICall() {
-    const possibleResponses = [
-        "This is a one-line response.",
-        "This is a longer response with a lot more words that take up more space.",
-        "This is the mega longest response because it includes even more words from before. In fact, the message repeats or not."];
-    const response = possibleResponses[Math.floor(Math.random() * possibleResponses.length)];
-    return {role:"assistant", content:response};
+const configuration = new Configuration({
+    apiKey: process.env.API_DEV_KEY
+})
+const openai = new OpenAIApi(configuration);
+
+async function PromptHandler(chatMessages: ChatCompletionRequestMessage[]) {
+    try {
+      const completion = await openai.createChatCompletion({
+        model: "gpt-3.5-turbo",
+        messages: chatMessages,
+      });
+
+      return completion.data.choices[0].message;
+    } catch (error) {
+      console.log("Prompt Handler", error);
+    }
 };
 
 
@@ -27,17 +37,17 @@ function ChatInput({chatMessages, setChatMessages, inputText, setInputText}) {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        let chatMessagesNew = [...chatMessages, {role: "user", content: `${inputText}`}];
-        setInputText("");
-        setChatMessages(chatMessagesNew);
 
         // Reset the height of the textarea
+        setInputText("");
         textareaRef.current.style.height = "1.5rem";
 
-        const response = await dummyOpenAICall();
+        let chatMessagesNew: ChatCompletionRequestMessage[] = [...chatMessages, {role: "user", content: `${inputText}`}];
+        setChatMessages(chatMessagesNew);
+        const response = await PromptHandler(chatMessagesNew);
         setChatMessages([
             ...chatMessagesNew,
-            {role:response.role, content: response.content},
+            response,
         ]);
     }
 
