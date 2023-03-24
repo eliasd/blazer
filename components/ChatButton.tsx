@@ -1,7 +1,13 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMessage } from '@fortawesome/free-solid-svg-icons'
 
-import "../style.css"
+import cssText from "data-text:~style.css"
+
+export const getStyle = () => {
+    const style = document.createElement("style")
+    style.textContent = cssText
+    return style
+}
 
 type ChatButtonProps = {
     onClick: () => void

@@ -1,4 +1,10 @@
-import "../style.css"
+import cssText from "data-text:~style.css"
+
+export const getStyle = () => {
+    const style = document.createElement("style")
+    style.textContent = cssText
+    return style
+}
 
 function ChatMessage({content}) {
   return (

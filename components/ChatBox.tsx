@@ -3,7 +3,13 @@ import { useRef, useEffect, useState } from 'react'
 import ChatInput from './ChatInput'
 import ChatMessage from './ChatMessage'
 
-import "../style.css"
+import cssText from "data-text:~style.css"
+
+export const getStyle = () => {
+    const style = document.createElement("style")
+    style.textContent = cssText
+    return style
+}
 
 
 function ChatBox({chatMessages, setChatMessages, inputText, setInputText}) {

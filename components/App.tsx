@@ -1,9 +1,15 @@
 import { useState } from 'react'
 import ChatButton from './ChatButton'
 import ChatBox from './ChatBox'
-import { ChatCompletionRequestMessage, ChatCompletionRequestMessageRoleEnum } from 'openai';
+import { ChatCompletionRequestMessage, ChatCompletionRequestMessageRoleEnum } from 'openai'
 
-import "../style.css"
+import cssText from "data-text:~style.css"
+
+export const getStyle = () => {
+    const style = document.createElement("style")
+    style.textContent = cssText
+    return style
+}
 
 const INIT_CHAT_MESSAGE: ChatCompletionRequestMessage = {role:ChatCompletionRequestMessageRoleEnum.System, content:"You are a helpful assistant."};
 
@@ -17,7 +23,7 @@ function App() {
     };
   
     return (
-      <div className="">
+      <div>
         {showChatBox && (
           <div className="fixed bottom-20 right-5">
             <ChatBox chatMessages={chatMessages} setChatMessages={setChatMessages} inputText={inputText} setInputText={setInputText} />

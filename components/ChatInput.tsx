@@ -4,7 +4,13 @@ import { useRef } from 'react'
 import { useEffect } from 'react'
 import { Configuration, OpenAIApi, ChatCompletionRequestMessage } from "openai";
 
-import "../style.css"
+import cssText from "data-text:~style.css"
+
+export const getStyle = () => {
+    const style = document.createElement("style")
+    style.textContent = cssText
+    return style
+}
 
 const configuration = new Configuration({
     apiKey: process.env.API_DEV_KEY
