@@ -23,7 +23,7 @@ function App() {
     };
   
     return (
-      <div>
+      <div className="font-sans">
         {showChatBox && (
           <div className="fixed bottom-20 right-5">
             <ChatBox chatMessages={chatMessages} setChatMessages={setChatMessages} inputText={inputText} setInputText={setInputText} />
