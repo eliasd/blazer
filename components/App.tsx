@@ -25,11 +25,11 @@ function App() {
     return (
       <div className="font-sans">
         {showChatBox && (
-          <div className="fixed bottom-20 right-5">
+          <div className="fixed bottom-[80px] right-[20px]">
             <ChatBox chatMessages={chatMessages} setChatMessages={setChatMessages} inputText={inputText} setInputText={setInputText} />
           </div> 
         )}
-        <div className="fixed bottom-5 right-5">
+        <div className="fixed bottom-[20px] right-[20px]">
           <ChatButton onClick={toggleChatBox} />
         </div>
       </div>
