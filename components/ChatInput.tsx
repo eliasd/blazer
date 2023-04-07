@@ -88,9 +88,9 @@ function ChatInput({chatMessages, setChatMessages, inputText, setInputText}) {
 
     return (
       <form className="m-0 w-[368px]" onSubmit={handleSubmit}>
-        <div className="flex flex-row relative w-full py-[8px] border border-black/50 bg-white rounded-md drop-shadow-md">
+        <div className="flex flex-row relative w-full py-[8px] border border-black/50 bg-white rounded-[6px] drop-shadow-md">
           <textarea ref={textareaRef} value={inputText} onChange={e => setInputText(e.target.value)} onKeyDown={handleKeyDown} className="m-0 w-full resize-none border-0 bg-transparent pl-[8px] pr-[28px] max-h-[100px] h-[24px] leading-[24px] text-[16px] focus:outline-none" placeholder='Type here. (Shift+Enter for newline)'/>
-          <button className="absolute right-[16px] bottom-[6px] p-[4px] rounded-md text-gray-500 hover:bg-gray-100"> 
+          <button className="absolute right-[16px] bottom-[6px] p-[4px] rounded-[6px] text-gray-500 hover:bg-gray-100"> 
             <FontAwesomeIcon icon={faPaperPlane} className="h-[16px] w-[16px]" />
           </button>
         </div>
