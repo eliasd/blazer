@@ -23,7 +23,6 @@ const DEV_URLS: string[] = [
 
 export const config: PlasmoCSConfig = {
     matches: DEV_URLS,
-    exclude_matches: [],
     all_frames: true
 }
 
