@@ -12,7 +12,7 @@ export const getStyle = () => {
 }
 
 
-function ChatBox({chatMessages, setChatMessages, inputText, setInputText}) {
+function ChatBox({chatMessages, setChatMessages}) {
 
   return (
     <div className="relative flex flex-col w-[384px] bg-gray-200 rounded-[6px] border outline outline-2 outline-blue-800/80 max-h-[624px] min-h-[60px]" >
@@ -24,7 +24,7 @@ function ChatBox({chatMessages, setChatMessages, inputText, setInputText}) {
           </ul>
       </div>
         <div className="flex justify-center py-[8px]">
-            <ChatInput chatMessages={chatMessages} setChatMessages={setChatMessages} inputText={inputText} setInputText={setInputText} />
+            <ChatInput chatMessages={chatMessages} setChatMessages={setChatMessages} />
         </div>
     </div>
   );
