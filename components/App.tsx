@@ -16,6 +16,7 @@ const INIT_CHAT_MESSAGE: ChatCompletionRequestMessage = {role:ChatCompletionRequ
 function App() {
     const [showChatBox, setShowChatBox] = useState(false);
     const [chatMessages, setChatMessages] = useState<Array<ChatCompletionRequestMessage>>([INIT_CHAT_MESSAGE]);
+    const [scrollPosition, setScrollPosition] = useState(0);
   
     const toggleChatBox = () => {
       setShowChatBox((prevState) => !prevState);
@@ -25,7 +26,7 @@ function App() {
       <div className="font-sans">
         {showChatBox && (
           <div className="fixed bottom-[80px] right-[20px]">
-            <ChatBox chatMessages={chatMessages} setChatMessages={setChatMessages} />
+            <ChatBox chatMessages={chatMessages} setChatMessages={setChatMessages} scrollPosition={scrollPosition} setScrollPosition={setScrollPosition}/>
           </div> 
         )}
         <div className="fixed bottom-[20px] right-[20px]">

@@ -27,6 +27,7 @@ async function PromptHandler(chatMessages: ChatCompletionRequestMessage[]) {
       });
 
       return completion.data.choices[0].message;
+      // return {role: "assistant", content: fixedResponse};
     } catch (error) {
       console.log("Prompt Handler", error);
     }
@@ -46,7 +47,14 @@ function ChatInput({chatMessages, setChatMessages}) {
     async function handleSubmit(e) {
         e.preventDefault();
 
+        // First, extract the current content in the textarea.
         const inputText: string = textareaRef.current.value;
+
+        // Then, reset the height and content of the textarea.
+        textareaRef.current.value = "";
+        textareaRef.current.style.height = "0px" // Momentarily resets the height.
+        textareaRef.current.style.height = textareaRef.current.scrollHeight + "px";
+
         let chatMessagesNew: ChatCompletionRequestMessage[] = [...chatMessages, {role: "user", content: `${inputText}`}];
         setChatMessages(chatMessagesNew);
         const response = await PromptHandler(chatMessagesNew);
@@ -54,11 +62,6 @@ function ChatInput({chatMessages, setChatMessages}) {
             ...chatMessagesNew,
             response,
         ]);
-
-        // Reset the height and content of the textarea.
-        textareaRef.current.value = "";
-        textareaRef.current.style.height = "0px" // Momentarily resets the height.
-        textareaRef.current.style.height = textareaRef.current.scrollHeight + "px";
     }
 
     async function handleKeyDown(e) {
@@ -68,7 +71,7 @@ function ChatInput({chatMessages, setChatMessages}) {
         return;
       } 
 
-      const isPrintable: boolean = e.key.length === 1 && !e.ctrlKey && !e.altKey && !e.metaKey;
+      const isPrintable: boolean = e.key.length === 1 && !e.ctrlKey && !e.altKey && !e.metaKey && !e.enterKey;
       if (isPrintable) {
         e.preventDefault();
         const textarea: HTMLTextAreaElement = textareaRef.current;
@@ -94,7 +97,7 @@ function ChatInput({chatMessages, setChatMessages}) {
       <form className="m-0 w-[368px]" onSubmit={handleSubmit}>
         <div className="flex flex-row relative w-full py-[8px] border border-black/50 bg-white rounded-[6px] drop-shadow-md">
           <textarea ref={textareaRef} onKeyDown={handleKeyDown} className="m-0 w-full resize-none border-0 bg-transparent pl-[8px] pr-[28px] max-h-[100px] h-[24px] leading-[24px] text-[16px] focus:outline-none" placeholder='Type here. (Shift+Enter for newline)'/>
-          <button className="absolute right-[16px] bottom-[6px] p-[4px] rounded-[6px] text-gray-500 hover:bg-gray-100"> 
+          <button className="absolute right-[9px] bottom-[6px] p-[4px] rounded-[6px] text-gray-500 hover:bg-gray-100"> 
             <FontAwesomeIcon icon={faPaperPlane} className="h-[16px] w-[16px]" />
           </button>
         </div>
